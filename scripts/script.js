@@ -54,7 +54,7 @@ const GameBoard = (() => {
     // gameplay module for initialising the board
     const gamePlay = (() => {
 
-        const gameState = {
+        const gameStateP = {
             keepPlaying : true,
             currentRound : 0
         };
@@ -64,15 +64,10 @@ const GameBoard = (() => {
             for (let row = 0; row < 3; ++row) {
                 for (let col = 0; col < 3; ++col) {
                     gameSpaceP[row][col] = "[  ]";
-                }
-            }
 
-            // Adding event listeners to each cell
-            for (let row = 0; row < 3; ++row) {
-                for (let col = 0; col < 3; ++col) {
                     const cell = document.getElementById(`col-${row}${col}`);
 
-                    // Call playRound() when a cell is clicked, along with the suitable choice - X or O
+                    // Adding event listeners to each cell
                     cell.addEventListener("click", () => {
                         console.log(`Cell-${row}${col} clicked`);
                         clickSpot = {
@@ -80,7 +75,8 @@ const GameBoard = (() => {
                             col
                         };
 
-                        playRound(gameState.currentRound, clickSpot);
+                        // Call playRoundP() when a cell is clicked, along with the round number of the game
+                        playRoundP(gameStateP.currentRound, clickSpot);
                     });
                 }
             }
@@ -89,7 +85,7 @@ const GameBoard = (() => {
         };
 
         // Determines the choice - X or O dpending upon the current round
-        const choiceSelection = (roundNum) => {
+        const choiceSelectionP = (roundNum) => {
             if (roundNum %  2 !== 0) {
                 return "X";
             } else {
@@ -98,11 +94,11 @@ const GameBoard = (() => {
         };
 
         // Modifies the gameSpaceP matrix and calls renderBoard()
-        const playRound = (roundNum, playerSpot) => {
-            let choice = choiceSelection(roundNum);
+        const playRoundP = (roundNum, playerSpot) => {
+            let choice = choiceSelectionP(roundNum);
             
             gameSpaceP[playerSpot.row][playerSpot.col] = choice;
-            gameState.currentRound += 1;
+            gameStateP.currentRound += 1;
 
             displayController.renderBoard();
         };
