@@ -1,0 +1,12 @@
+Tackling choice during gameplay:
+
+  Create a loop and a counter variable.
+
+  For even numbered loops, "O" is the playerChoice.
+  For odd numbered loops, "X" is the playerChoice.
+
+To play a single round, you need to know the player choice, matrix change, updating the dom and then doing a check if the round's over yet and then returning the bool value.
+
+Okay, as soon as you click an element, a function is called.
+  
+  This function takes in roundNum, which is defined [somewhere].
