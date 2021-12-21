@@ -15,6 +15,7 @@ const GameBoard = (() => {
     const displayController  = (() => {
 
         const boardDivP = document.querySelector(".board");
+        const resultDivP = document.querySelector(".result");
 
         // Create cells and pass them in to the div.board element
         const createBoardGrid = () => {
@@ -44,9 +45,25 @@ const GameBoard = (() => {
             }
         };
 
+        const displayWinner = (winner) => {
+            resultDivP.innerHTML = `The winner is ${winner}`;
+        };
+
+        const resetBoard = () => {
+            for (let row = 0; row < 3; ++row) {
+                for (let col = 0; col < 3; ++col) {
+                    gameSpaceP[row][col] = `${row}${col}`;
+
+                    renderBoard();
+                }
+            }
+        };
+
         return {
             createBoardGrid,
-            renderBoard
+            renderBoard,
+            displayWinner,
+            resetBoard
         };
 
     })();
@@ -63,7 +80,7 @@ const GameBoard = (() => {
         const initialiseBoard = () => {
             for (let row = 0; row < 3; ++row) {
                 for (let col = 0; col < 3; ++col) {
-                    gameSpaceP[row][col] = "[  ]";
+                    gameSpaceP[row][col] = `[${row}${col}]`;
 
                     const cell = document.getElementById(`col-${row}${col}`);
 
@@ -101,6 +118,15 @@ const GameBoard = (() => {
             gameStateP.currentRound += 1;
 
             displayController.renderBoard();
+
+            for (let row = 0; row < 3; ++row) {
+                if ((gameSpaceP[row][0] === gameSpaceP[row][1]) && (gameSpaceP[row][0] === gameSpaceP[row][2])) {
+                    displayController.displayWinner(choice);
+                    setInterval(() => {
+                        displayController.resetBoard();
+                    }, 5000);
+                }
+            }
         };
 
         return {
